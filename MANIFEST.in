@@ -1,0 +1,3 @@
+include README.md
+include src/fastsimplex/_simplex.metal
+include src/fastsimplex/_simplex.mm
