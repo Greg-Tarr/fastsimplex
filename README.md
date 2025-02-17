@@ -2,6 +2,8 @@
 
 GPU simplex noise for Python. Provides significant performance improvements over CPU-based implementations, especially for 3D noise generation.
 
+<img src="assets/2d_scale50.0_octaves9.jpg"/>
+
 ## Installation
 
 ```bash
