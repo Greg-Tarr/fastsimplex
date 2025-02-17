@@ -1,6 +1,6 @@
 # FastSimplex
 
-GPU simplex noise for Python. Provides significant performance improvements over CPU-based implementations, especially for 3D noise generation.
+GPU simplex noise for Python. Provides significant performance improvements over CPU-based implementations, especially for 3D noise generation. Uses a custom Metal kernel for highly optimized noise generation on Apple Silicon.
 
 <img src="assets/2d_scale50.0_octaves9.jpg"/>
 
