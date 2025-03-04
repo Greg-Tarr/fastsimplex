@@ -1,3 +1,5 @@
+#define WITH_METAL
+
 #include <torch/extension.h>
 #include <stdexcept>
 #import <Metal/Metal.h>
@@ -67,7 +69,7 @@ static id<MTLComputePipelineState> getPipelineState(const char* kernelName) {
 
 // The Metal-based simplex noise function.
 // (If the third tensor is empty, we run 2D; otherwise 3D.)
-torch::Tensor simplex(torch::Tensor x, torch::Tensor y, torch::Tensor z,
+torch::Tensor simplex_metal(torch::Tensor x, torch::Tensor y, torch::Tensor z,
                         int octaves, float persistence, float lacunarity, int seed) {
   // Ensure tensors are contiguous and on CPU.
   x = x.contiguous();
@@ -159,5 +161,5 @@ torch::Tensor simplex(torch::Tensor x, torch::Tensor y, torch::Tensor z,
 }
 
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
-    m.def("simplex", &simplex, "Simplex noise (MPS)");
+    m.def("simplex", &simplex_metal, "Simplex noise (MPS)");
 }

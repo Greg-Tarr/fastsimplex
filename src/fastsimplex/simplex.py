@@ -1,23 +1,75 @@
-import os
 
-import numpy as np
+import os
+import platform
+from typing import TYPE_CHECKING, Protocol, Optional
+
 import torch
+import numpy as np
 from torch.utils.cpp_extension import load
 
-# Load the Metal extension TODO: cuda
-_simplex = load(
-    name="simplex",
-    sources=[os.path.join(os.path.dirname(__file__), "_simplex.mm")],
-    extra_cflags=["-std=c++17", "-mmacosx-version-min=11.0", "-fobjc-arc"],
-    extra_ldflags=[
-        "-framework",
-        "Metal",
-        "-framework",
-        "Foundation",
-        "-mmacosx-version-min=11.0",
-    ],
-    verbose=False,
-)
+# Type definitions for Pyright
+if TYPE_CHECKING:
+    class SimplexModuleProtocol(Protocol):
+        def simplex(
+            self,
+            x: torch.Tensor,
+            y: torch.Tensor,
+            z: torch.Tensor,
+            octaves: int,
+            persistence: float,
+            lacunarity: float,
+            seed: int
+        ) -> torch.Tensor: ...
+
+    _simplex: SimplexModuleProtocol
+else:
+    # Detect the platform and available backends
+    is_macos = platform.system() == "Darwin"
+    has_cuda = torch.cuda.is_available()
+
+    # Choose which extensions to build based on platform
+    extension_sources = []
+    extra_cflags = []
+    extra_ldflags = []
+    extra_cuda_cflags = []
+
+    # Build path
+    sources_dir = os.path.dirname(__file__)
+
+    if is_macos:
+        # On macOS, try to use Metal
+        extra_cflags.extend(["-std=c++17", "-DWITH_METAL", "-mmacosx-version-min=11.0", "-fobjc-arc"])
+        extension_sources.append(os.path.join(sources_dir, "_simplex_metal.mm"))
+        extra_ldflags.extend([
+            "-framework", "Metal",
+            "-framework", "Foundation",
+            "-mmacosx-version-min=11.0",
+        ])
+
+    if has_cuda:
+        # If CUDA is available, also include CUDA sources
+        extension_sources.append(os.path.join(sources_dir, "_simplex.cu"))
+        extra_cuda_cflags.append("-DWITH_CUDA")
+        extra_cuda_cflags.append("-arch=sm_70")  # Set appropriate CUDA architecture
+
+    # Include the dispatcher if we have multiple backends
+    if len(extension_sources) > 1:
+        extension_sources.append(os.path.join(sources_dir, "_simplex_dispatch.cpp"))
+        extra_cflags.append("-std=c++14")  # For the dispatcher
+
+    # If no backend is available, default to CPU implementation or raise error
+    if not extension_sources:
+        raise RuntimeError("No supported backend available. Requires either macOS for Metal or CUDA support.")
+
+    # Load the extension based on available backends
+    _simplex = load(
+        name="simplex",
+        sources=extension_sources,
+        extra_cflags=extra_cflags,
+        extra_ldflags=extra_ldflags,
+        extra_cuda_cflags=extra_cuda_cflags,
+        verbose=False,
+    )
 
 
 def noise2(
@@ -126,7 +178,7 @@ def noise3(
 def noise(
     x: torch.Tensor,
     y: torch.Tensor,
-    z: torch.Tensor | None = None,
+    z: Optional[torch.Tensor] = None,
     *,
     octaves: int = 1,
     persistence: float = 0.5,

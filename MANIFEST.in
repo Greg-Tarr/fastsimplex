@@ -1,3 +1,7 @@
 include README.md
+include src/fastsimplex/_simplex.cu
 include src/fastsimplex/_simplex.metal
-include src/fastsimplex/_simplex.mm
+include src/fastsimplex/_simplex_dispatch.cpp
+include src/fastsimplex/_simplex_metal.mm
+include src/fastsimplex/py.typed
+include src/fastsimplex/__init__.pyi
