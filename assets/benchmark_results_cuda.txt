@@ -1,0 +1,88 @@
+FastSimplex Benchmark Results using CUDA
+==================================================
+
+2D NOISE BENCHMARKS
+------------------------------
+Config: octaves=1, scale=25.0, persistence=0.5, lacunarity=2.0
+Shape: (256, 256)
+Default time: 0.0642s, CUDA time: 0.0014s
+Speedup: 45.72x
+
+Config: octaves=3, scale=25.0, persistence=0.5, lacunarity=2.0
+Shape: (256, 256)
+Default time: 0.0627s, CUDA time: 0.0004s
+Speedup: 143.19x
+
+Config: octaves=5, scale=25.0, persistence=0.5, lacunarity=2.0
+Shape: (256, 256)
+Default time: 0.0628s, CUDA time: 0.0004s
+Speedup: 140.07x
+
+Config: octaves=9, scale=25.0, persistence=0.5, lacunarity=2.0
+Shape: (256, 256)
+Default time: 0.0732s, CUDA time: 0.0005s
+Speedup: 134.17x
+
+Config: octaves=1, scale=50.0, persistence=0.5, lacunarity=2.0
+Shape: (256, 256)
+Default time: 0.0663s, CUDA time: 0.0006s
+Speedup: 109.78x
+
+Config: octaves=3, scale=50.0, persistence=0.5, lacunarity=2.0
+Shape: (256, 256)
+Default time: 0.0783s, CUDA time: 0.0004s
+Speedup: 175.49x
+
+Config: octaves=5, scale=50.0, persistence=0.5, lacunarity=2.0
+Shape: (256, 256)
+Default time: 0.0757s, CUDA time: 0.0006s
+Speedup: 121.49x
+
+Config: octaves=9, scale=50.0, persistence=0.5, lacunarity=2.0
+Shape: (256, 256)
+Default time: 0.0911s, CUDA time: 0.0006s
+Speedup: 157.30x
+
+
+3D NOISE BENCHMARKS
+------------------------------
+Config: octaves=1, scale=25.0, persistence=0.5, lacunarity=2.0
+Shape: (128, 128, 128)
+Default time: 2.3943s, CUDA time: 0.0466s
+Speedup: 51.38x
+
+Config: octaves=3, scale=25.0, persistence=0.5, lacunarity=2.0
+Shape: (128, 128, 128)
+Default time: 2.4944s, CUDA time: 0.0307s
+Speedup: 81.26x
+
+Config: octaves=5, scale=25.0, persistence=0.5, lacunarity=2.0
+Shape: (128, 128, 128)
+Default time: 2.6018s, CUDA time: 0.0191s
+Speedup: 136.10x
+
+Config: octaves=9, scale=25.0, persistence=0.5, lacunarity=2.0
+Shape: (128, 128, 128)
+Default time: 2.9247s, CUDA time: 0.0416s
+Speedup: 70.32x
+
+Config: octaves=1, scale=50.0, persistence=0.5, lacunarity=2.0
+Shape: (128, 128, 128)
+Default time: 2.1324s, CUDA time: 0.0338s
+Speedup: 63.02x
+
+Config: octaves=3, scale=50.0, persistence=0.5, lacunarity=2.0
+Shape: (128, 128, 128)
+Default time: 2.2937s, CUDA time: 0.0366s
+Speedup: 62.70x
+
+Config: octaves=5, scale=50.0, persistence=0.5, lacunarity=2.0
+Shape: (128, 128, 128)
+Default time: 2.4722s, CUDA time: 0.0152s
+Speedup: 162.77x
+
+Config: octaves=9, scale=50.0, persistence=0.5, lacunarity=2.0
+Shape: (128, 128, 128)
+Default time: 2.9146s, CUDA time: 0.0336s
+Speedup: 86.81x
+

@@ -1,8 +1,10 @@
 # FastSimplex
 
-GPU simplex noise for Python. Provides significant performance improvements over CPU-based implementations, especially for 3D noise generation. Uses a custom Metal kernel for highly optimized noise generation on Apple Silicon.
+GPU simplex noise for Python. Provides significant performance improvements over CPU-based implementations, especially for 3D noise generation.
 
-<img src="assets/2d_scale50.0_octaves9.jpg"/>
+Uses custom Metal/CUDA kernels for extremely fast generation on most devices.
+
+<img src="assets/2d_scale50.0_octaves9_cuda.jpg"/>
 
 ## Installation
 
@@ -37,41 +39,75 @@ See `scripts/benchmark.py` for detailed benchmarks. Generally achieves:
 ## Gallery
 
 ### 2D Noise Examples
+#### CUDA Backend
 Scale 25.0:
 <p float="left">
-  <img src="assets/2d_scale25.0_octaves1.jpg" width="200" />
-  <img src="assets/2d_scale25.0_octaves3.jpg" width="200" />
-  <img src="assets/2d_scale25.0_octaves5.jpg" width="200" />
-  <img src="assets/2d_scale25.0_octaves9.jpg" width="200" />
+  <img src="assets/2d_scale25.0_octaves1_cuda.jpg" width="200" />
+  <img src="assets/2d_scale25.0_octaves3_cuda.jpg" width="200" />
+  <img src="assets/2d_scale25.0_octaves5_cuda.jpg" width="200" />
+  <img src="assets/2d_scale25.0_octaves9_cuda.jpg" width="200" />
 </p>
 
 Scale 50.0:
 <p float="left">
-  <img src="assets/2d_scale50.0_octaves1.jpg" width="200" />
-  <img src="assets/2d_scale50.0_octaves3.jpg" width="200" />
-  <img src="assets/2d_scale50.0_octaves5.jpg" width="200" />
-  <img src="assets/2d_scale50.0_octaves9.jpg" width="200" />
+  <img src="assets/2d_scale50.0_octaves1_cuda.jpg" width="200" />
+  <img src="assets/2d_scale50.0_octaves3_cuda.jpg" width="200" />
+  <img src="assets/2d_scale50.0_octaves5_cuda.jpg" width="200" />
+  <img src="assets/2d_scale50.0_octaves9_cuda.jpg" width="200" />
+</p>
+
+#### MPS Backend (Apple Silicon)
+Scale 25.0:
+<p float="left">
+  <img src="assets/2d_scale25.0_octaves1_mps.jpg" width="200" />
+  <img src="assets/2d_scale25.0_octaves3_mps.jpg" width="200" />
+  <img src="assets/2d_scale25.0_octaves5_mps.jpg" width="200" />
+  <img src="assets/2d_scale25.0_octaves9_mps.jpg" width="200" />
+</p>
+
+Scale 50.0:
+<p float="left">
+  <img src="assets/2d_scale50.0_octaves1_mps.jpg" width="200" />
+  <img src="assets/2d_scale50.0_octaves3_mps.jpg" width="200" />
+  <img src="assets/2d_scale50.0_octaves5_mps.jpg" width="200" />
+  <img src="assets/2d_scale50.0_octaves9_mps.jpg" width="200" />
 </p>
 
 ### 3D Noise Examples
+#### CUDA Backend
 Scale 25.0:
 <p float="left">
-  <img src="assets/3d_scale25.0_octaves1.jpg" width="200" />
-  <img src="assets/3d_scale25.0_octaves3.jpg" width="200" />
-  <img src="assets/3d_scale25.0_octaves5.jpg" width="200" />
-  <img src="assets/3d_scale25.0_octaves9.jpg" width="200" />
+  <img src="assets/3d_scale25.0_octaves1_cuda.jpg" width="200" />
+  <img src="assets/3d_scale25.0_octaves3_cuda.jpg" width="200" />
+  <img src="assets/3d_scale25.0_octaves5_cuda.jpg" width="200" />
+  <img src="assets/3d_scale25.0_octaves9_cuda.jpg" width="200" />
 </p>
 
 Scale 50.0:
 <p float="left">
-  <img src="assets/3d_scale50.0_octaves1.jpg" width="200" />
-  <img src="assets/3d_scale50.0_octaves3.jpg" width="200" />
-  <img src="assets/3d_scale50.0_octaves5.jpg" width="200" />
-  <img src="assets/3d_scale50.0_octaves9.jpg" width="200" />
+  <img src="assets/3d_scale50.0_octaves1_cuda.jpg" width="200" />
+  <img src="assets/3d_scale50.0_octaves3_cuda.jpg" width="200" />
+  <img src="assets/3d_scale50.0_octaves5_cuda.jpg" width="200" />
+  <img src="assets/3d_scale50.0_octaves9_cuda.jpg" width="200" />
 </p>
+
+#### MPS Backend (Apple Silicon)
+Scale 25.0:
+<p float="left">
+  <img src="assets/3d_scale25.0_octaves1_mps.jpg" width="200" />
+  <img src="assets/3d_scale25.0_octaves3_mps.jpg" width="200" />
+  <img src="assets/3d_scale25.0_octaves5_mps.jpg" width="200" />
+  <img src="assets/3d_scale25.0_octaves9_mps.jpg" width="200" />
+</p>
+
+Scale 50.0:
+<p float="left">
+  <img src="assets/3d_scale50.0_octaves1_mps.jpg" width="200" />
+</p>
+
 
 ## Requirements
 
-- macOS 11.0 or later
 - Python 3.12 or later
 - PyTorch 2.6.0 or later
+- CUDA-capable GPU (for CUDA backend) or Apple Silicon (for MPS backend)
