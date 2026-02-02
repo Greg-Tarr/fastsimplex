@@ -50,7 +50,15 @@ else:
         # If CUDA is available, also include CUDA sources
         extension_sources.append(os.path.join(sources_dir, "_simplex.cu"))
         extra_cuda_cflags.append("-DWITH_CUDA")
-        extra_cuda_cflags.append("-arch=sm_70")  # Set appropriate CUDA architecture
+        extra_cuda_cflags += [
+        "-gencode=arch=compute_70,code=sm_70",
+        "-gencode=arch=compute_75,code=sm_75",
+        "-gencode=arch=compute_80,code=sm_80",
+        "-gencode=arch=compute_86,code=sm_86",
+        "-gencode=arch=compute_89,code=sm_89",
+        "-gencode=arch=compute_90,code=sm_90",
+        ]
+
 
     # Include the dispatcher if we have multiple backends
     if len(extension_sources) > 1:
